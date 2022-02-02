@@ -1,3 +1,3 @@
 Simple Read Me file to explain the first project
-Test to check Continuous Integration is working
-Test no. 2
+
+![workflow](https://github.com/<UserName>/<RepositoryName>/actions/workflows/main.yml/badge.svg)
