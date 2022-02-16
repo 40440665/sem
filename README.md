@@ -1,3 +1,5 @@
+# Software Engineering Methods
+
 Simple Read Me file to explain the first project
 
 ![workflow](https://github.com/40440665/sem/actions/workflows/main.yml/badge.svg)
@@ -6,5 +8,4 @@ Simple Read Me file to explain the first project
 
 [![Releases](https://img.shields.io/github/release/40440665/sem/all.svg?style=flat-square)](https://github.com/40440665/sem/releases)
 
-# Software Engineering Methods
 Master: ![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/40440665/sem/workflow/master)
