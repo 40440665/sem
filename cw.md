@@ -1,3 +1,5 @@
-|Hello|   1   |
-|------
-|How  |
+
+| Syntax      | Description |
+| ----------- | ----------- |
+| Header      | Title       |
+| Paragraph   | Text        |
