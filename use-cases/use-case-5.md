@@ -24,7 +24,7 @@ The new employee is added to the database and can be paid by finance.
 
 ### Failed End Condition
 
-Employee is added to the database.
+Employee is not added to the database.
 
 ### Primary Actor
 
