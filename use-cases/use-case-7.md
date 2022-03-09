@@ -1,4 +1,4 @@
-# USE CASE: 6 Update employee's details store in the system
+# USE CASE: 7 Update employee's details store in the system
 
 ## CHARACTERISTIC INFORMATION
 
