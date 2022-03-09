@@ -20,7 +20,7 @@ We know the current department managers department.  Database contains current e
 
 ### Success End Condition
 
-A report is available for a department managerto provide to finance.
+A report is available for a department manager's department to provide to finance.
 
 ### Failed End Condition
 
@@ -28,23 +28,23 @@ No report is produced.
 
 ### Primary Actor
 
-HR Advisor.
+Department Manager.
 
 ### Trigger
 
-A request for finance information is sent to HR.
+A request for finance information is sent to a department manager.
 
 ## MAIN SUCCESS SCENARIO
 
 1. Finance request salary information for a given role.
-2. HR advisor captures name of the role to get salary information for.
-3. HR advisor extracts current salary information of all employees of the given role.
-4. HR advisor provides report to finance.
+2. Department manager provides the name of their department to get salary information for.
+3. Department manager extracts current salary information of all employees that work in the given department.
+4. Department manager provides report to finance.
 
 ## EXTENSIONS
 
-3. **Role does not exist**:
-    1. HR advisor informs finance no role exists.
+3. **Department does not exist**:
+    1. Department manager informs finance no role exists.
 
 ## SUB-VARIATIONS
 
