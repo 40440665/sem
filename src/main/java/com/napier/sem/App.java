@@ -203,7 +203,7 @@ public class App
         try
         {
             // Create an SQL statement
-            PreparedStatement stmt = con.prepareStatement("SELECT employees.emp_no, employees.first_name, employees.last_name, salaries.salary FROM employees, salaries WHERE employees.emp_no = salaries.emp_no AND salaries.to_date = '9999-01-01' AND titles.title = ? ORDER BY employees.emp_no ASC");
+            PreparedStatement stmt = con.prepareStatement("SELECT employees.emp_no, employees.first_name, employees.last_name, salaries.salary FROM employees, salaries, titles WHERE employees.emp_no = salaries.emp_no AND employees.emp_no = titles.emp_no AND salaries.to_date = '9999-01-01' AND titles.to_date = '9999-01-01' AND titles.title = ? ORDER BY employees.emp_no ASC");
             stmt.setString(1, role);
 
             // Execute SQL statement
