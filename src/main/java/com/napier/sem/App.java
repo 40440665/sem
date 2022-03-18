@@ -14,14 +14,15 @@ public class App
         // Create new Application
         App a = new App();
 
+        String role = "Engineer";
         // Connect to database
         a.connect();
 
         // Extract employee salary information
-        ArrayList<Employee> employees = a.getAllSalaries();
+        ArrayList<Employee> employees = a.getSalariesByRole(role);
 
         // Test the size of the returned data - should be 240124
-        System.out.println(employees.size());
+        a.printSalaries(employees);
 
         // Disconnect from database
         a.disconnect();
@@ -197,20 +198,16 @@ public class App
             System.out.println(emp_string);
         }
     }
-    public ArrayList<Employee> getSalariesByRole(String title)
+    public ArrayList<Employee> getSalariesByRole(String role)
     {
         try
         {
             // Create an SQL statement
-            Statement stmt = con.createStatement();
-            // Create string for SQL statement
-            String strSelect =
-                    "SELECT employees.emp_no, employees.first_name, employees.last_name, salaries.salary "
-                            + "FROM employees, salaries "
-                            + "WHERE employees.emp_no = salaries.emp_no AND salaries.to_date = '9999-01-01' AND titles.to_date = '9999-01-01' AND titles.title = '<title>' "
-                            + "ORDER BY employees.emp_no ASC";
+            PreparedStatement stmt = con.prepareStatement("SELECT employees.emp_no, employees.first_name, employees.last_name, salaries.salary FROM employees, salaries WHERE employees.emp_no = salaries.emp_no AND salaries.to_date = '9999-01-01' AND titles.to_date = '9999-01-01' AND titles.title = ? ORDER BY employees.emp_no ASC");
+            stmt.setString(1, role);
+
             // Execute SQL statement
-            ResultSet rset = stmt.executeQuery(strSelect);
+            ResultSet rset = stmt.executeQuery();
             // Extract employee information
             ArrayList<Employee> employees = new ArrayList<Employee>();
             while (rset.next())
