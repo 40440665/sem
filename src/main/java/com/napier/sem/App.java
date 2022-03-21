@@ -12,8 +12,12 @@ public class App {
         // Connect to database
         a.connect();
 
+        Department dept = new Department();
+        dept = a.getDepartment("Sales");
+
+
         // Extract employee salary information
-        ArrayList<Employee> employees = a.getSalariesByRole(role);
+        ArrayList<Employee> employees = a.getSalariesByDepartment(dept);
 
         // Print the salaries
         a.printSalaries(employees);
@@ -192,10 +196,55 @@ public class App {
     }
 
     public Department getDepartment(String dept_name) {
-        return null;
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT dept_no, dept_name"
+                            + "FROM departements "
+                            + "WHERE dept_no = " + dept_name;
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            if (rset.next()) {
+                Department dept = new Department();
+                dept.dept_no = rset.getInt("dept_no");
+                dept.dept_name = rset.getString("dept_name");
+                return dept;
+            } else
+                return null;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get employee details");
+            return null;
+        }
     }
 
     public ArrayList<Employee> getSalariesByDepartment(Department dept) {
-        return null;
+        try {
+            // Create an SQL statement
+            PreparedStatement stmt = con.prepareStatement("SELECT employees.emp_no, employees.first_name, employees.last_name, salaries.salary FROM employees, salaries, dept_emp, department WHERE employees.emp_no = salaries.emp_no AND employees.emp_no = dept_emp.emp_no AND dept_emp.dept_no = departments.dept_no AND salaries.to_date = '9999-01-01' AND departments.dept_no = 'Sales' ORDER BY employees.emp_no ASC");
+            //stmt.setString(1, dept);
+
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery();
+            // Extract employee information
+            ArrayList<Employee> employees = new ArrayList<Employee>();
+            while (rset.next()) {
+                Employee emp = new Employee();
+                emp.emp_no = rset.getInt("employees.emp_no");
+                emp.first_name = rset.getString("employees.first_name");
+                emp.last_name = rset.getString("employees.last_name");
+                emp.salary = rset.getInt("salaries.salary");
+                employees.add(emp);
+            }
+            return employees;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get salary details");
+            return null;
+        }
     }
 }
