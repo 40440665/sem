@@ -203,7 +203,7 @@ public class App {
             String strSelect =
                     "SELECT dept_no, dept_name"
                             + "FROM departments "
-                            + "WHERE dept_no = " + dept_name;
+                            + "WHERE dept_name = " + dept_name;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
