@@ -202,7 +202,7 @@ public class App {
             // Create string for SQL statement
             String strSelect =
                     "SELECT dept_no, dept_name"
-                            + "FROM departements "
+                            + "FROM departments "
                             + "WHERE dept_no = " + dept_name;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
@@ -225,7 +225,7 @@ public class App {
     public ArrayList<Employee> getSalariesByDepartment(Department dept) {
         try {
             // Create an SQL statement
-            PreparedStatement stmt = con.prepareStatement("SELECT employees.emp_no, employees.first_name, employees.last_name, salaries.salary FROM employees, salaries, dept_emp, department WHERE employees.emp_no = salaries.emp_no AND employees.emp_no = dept_emp.emp_no AND dept_emp.dept_no = departments.dept_no AND salaries.to_date = '9999-01-01' AND departments.dept_no = 'Sales' ORDER BY employees.emp_no ASC");
+            PreparedStatement stmt = con.prepareStatement("SELECT employees.emp_no, employees.first_name, employees.last_name, salaries.salary FROM employees, salaries, dept_emp, departments WHERE employees.emp_no = salaries.emp_no AND employees.emp_no = dept_emp.emp_no AND dept_emp.dept_no = departments.dept_no AND salaries.to_date = '9999-01-01' AND departments.dept_no = 'Sales' ORDER BY employees.emp_no ASC");
             //stmt.setString(1, dept);
 
             // Execute SQL statement
