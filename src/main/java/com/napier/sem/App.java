@@ -12,12 +12,12 @@ public class App {
         // Connect to database
         a.connect();
 
-        Department dept = new Department();
-        dept = a.getDepartment("Sales");
+        //Department dept = new Department();
+        //dept = a.getDepartment("Sales");
 
 
         // Extract employee salary information
-        ArrayList<Employee> employees = a.getSalariesByDepartment(dept);
+        ArrayList<Employee> employees = a.getSalariesByDepartment();
 
         // Print the salaries
         a.printSalaries(employees);
@@ -222,7 +222,7 @@ public class App {
         }
     }
 
-    public ArrayList<Employee> getSalariesByDepartment(Department dept) {
+    public ArrayList<Employee> getSalariesByDepartment() {
         try {
             // Create an SQL statement
             PreparedStatement stmt = con.prepareStatement("SELECT employees.emp_no, employees.first_name, employees.last_name, salaries.salary FROM employees, salaries, dept_emp, departments WHERE employees.emp_no = salaries.emp_no AND employees.emp_no = dept_emp.emp_no AND dept_emp.dept_no = departments.dept_no AND salaries.to_date = '9999-01-01' AND departments.dept_no = 'Sales' ORDER BY employees.emp_no ASC");
