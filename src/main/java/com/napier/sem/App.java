@@ -225,7 +225,7 @@ public class App {
     public ArrayList<Employee> getSalariesByDepartment() {
         try {
             // Create an SQL statement
-            PreparedStatement stmt = con.prepareStatement("SELECT employees.emp_no, employees.first_name, employees.last_name, salaries.salary FROM employees, salaries, dept_emp, departments WHERE employees.emp_no = salaries.emp_no AND employees.emp_no = dept_emp.emp_no AND dept_emp.dept_no = departments.dept_no AND salaries.to_date = '9999-01-01' AND departments.dept_no = 'd001' ORDER BY employees.emp_no ASC");
+            PreparedStatement stmt = con.prepareStatement("SELECT employees.emp_no, employees.first_name, employees.last_name, salaries.salary FROM employees, salaries, dept_emp, departments WHERE employees.emp_no = salaries.emp_no AND employees.emp_no = dept_emp.emp_no AND dept_emp.dept_no = departments.dept_no AND salaries.to_date = '9999-01-01' AND departments.dept_no = 'd007' ORDER BY employees.emp_no ASC");
             //stmt.setString(1, dept);
 
             // Execute SQL statement
