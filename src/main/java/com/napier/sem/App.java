@@ -8,13 +8,8 @@ public class App {
         // Create new Application
         App a = new App();
 
-        String role = "Engineer";
         // Connect to database
         a.connect();
-
-        Department dept = new Department();
-        dept = a.getDepartment("Sales");
-
 
         // Extract employee salary information
         ArrayList<Employee> employees = a.getSalariesByDepartment();
@@ -82,9 +77,10 @@ public class App {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT emp_no, first_name, last_name "
-                            + "FROM employees "
-                            + "WHERE emp_no = " + ID;
+                    "SELECT employees.emp_no, employees.first_name, employees.last_name, dept_manager.dept_no "
+                            + " FROM employees, dept_manager "
+                            + " WHERE employees.emp_no = dept_manager.emp_no "
+                            + " AND emp_no = " + ID;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
@@ -128,10 +124,10 @@ public class App {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT employees.emp_no, employees.first_name, employees.last_name, salaries.salary "
-                            + "FROM employees, salaries "
-                            + "WHERE employees.emp_no = salaries.emp_no AND salaries.to_date = '9999-01-01' "
-                            + "ORDER BY employees.emp_no ASC";
+                    " SELECT employees.emp_no, employees.first_name, employees.last_name, salaries.salary "
+                            + " FROM employees, salaries "
+                            + " WHERE employees.emp_no = salaries.emp_no AND salaries.to_date = '9999-01-01' "
+                            + " ORDER BY employees.emp_no ASC ";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Extract employee information
@@ -172,11 +168,17 @@ public class App {
     public ArrayList<Employee> getSalariesByRole(String role) {
         try {
             // Create an SQL statement
-            PreparedStatement stmt = con.prepareStatement("SELECT employees.emp_no, employees.first_name, employees.last_name, salaries.salary FROM employees, salaries, titles WHERE employees.emp_no = salaries.emp_no AND employees.emp_no = titles.emp_no AND salaries.to_date = '9999-01-01' AND titles.to_date = '9999-01-01' AND titles.title = 'Engineer' ORDER BY employees.emp_no ASC");
-            //stmt.setString(1, role);
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                        " SELECT employees.emp_no, employees.first_name, employees.last_name, salaries.salary "
+                            + " FROM employees, salaries, titles "
+                            + " WHERE employees.emp_no = salaries.emp_no AND employees.emp_no = titles.emp_no "
+                            + " AND salaries.to_date = '9999-01-01' AND titles.to_date = '9999-01-01' AND titles.title = 'Engineer' "
+                            + " ORDER BY employees.emp_no ASC";
 
             // Execute SQL statement
-            ResultSet rset = stmt.executeQuery();
+            ResultSet rset = stmt.executeQuery(strSelect);
             // Extract employee information
             ArrayList<Employee> employees = new ArrayList<Employee>();
             while (rset.next()) {
@@ -195,15 +197,16 @@ public class App {
         }
     }
 
-    public Department getDepartment(String dept_name) {
+    public Department getDepartment() {
         try {
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT dept_no, dept_name"
-                            + "FROM departments "
-                            + "WHERE dept_name = " + dept_name;
+                    " SELECT departments.dept_no, departments.dept_name, dept_manager.emp_no "
+                            + " FROM departments, dept_manager "
+                            + " WHERE departments.dept_no = dept_manager.dept_no "
+                            + " AND dept_name = 'Sales' ";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
@@ -225,11 +228,17 @@ public class App {
     public ArrayList<Employee> getSalariesByDepartment() {
         try {
             // Create an SQL statement
-            PreparedStatement stmt = con.prepareStatement("SELECT employees.emp_no, employees.first_name, employees.last_name, salaries.salary FROM employees, salaries, dept_emp, departments WHERE employees.emp_no = salaries.emp_no AND employees.emp_no = dept_emp.emp_no AND dept_emp.dept_no = departments.dept_no AND salaries.to_date = '9999-01-01' AND departments.dept_no = 'd007' ORDER BY employees.emp_no ASC");
-            //stmt.setString(1, dept);
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    " SELECT employees.emp_no, employees.first_name, employees.last_name, salaries.salary "
+                        + " FROM employees, salaries, dept_emp, departments "
+                        + " WHERE employees.emp_no = salaries.emp_no AND employees.emp_no = dept_emp.emp_no AND dept_emp.dept_no = departments.dept_no "
+                        + " AND salaries.to_date = '9999-01-01' AND departments.dept_no = 'd007' "
+                        + " ORDER BY employees.emp_no ASC ";
 
             // Execute SQL statement
-            ResultSet rset = stmt.executeQuery();
+            ResultSet rset = stmt.executeQuery(strSelect);
             // Extract employee information
             ArrayList<Employee> employees = new ArrayList<Employee>();
             while (rset.next()) {
