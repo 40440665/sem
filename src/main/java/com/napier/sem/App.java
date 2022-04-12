@@ -213,8 +213,9 @@ public class App
                             + " AND titles.to_date = '9999-01-01' "
                             + " AND titles.title = '" + role
                             + "' ORDER BY employees.emp_no ASC "; 
+            
             // Execute SQL statement
-            ResultSet rset = stmt.executeQuery();
+            ResultSet rset = stmt.executeQuery(strSelect);
             // Extract employee information
             ArrayList<Employee> employees = new ArrayList<Employee>();
             while (rset.next())
