@@ -14,14 +14,13 @@ public class App
         // Create new Application
         App a = new App();
 
-        String role = "Engineer";
         // Connect to database
         a.connect();
 
         // Extract employee salary information
-        ArrayList<Employee> employees = a.getSalariesByRole(role);
+        ArrayList<Employee> employees = a.getSalariesByRole("Engineer");
 
-        // Test the size of the returned data - should be 240124
+        // Print employees salaries
         a.printSalaries(employees);
 
         // Disconnect from database
@@ -203,9 +202,17 @@ public class App
         try
         {
             // Create an SQL statement
-            PreparedStatement stmt = con.prepareStatement("SELECT employees.emp_no, employees.first_name, employees.last_name, salaries.salary FROM employees, salaries, titles WHERE employees.emp_no = salaries.emp_no AND employees.emp_no = titles.emp_no AND salaries.to_date = '9999-01-01' AND titles.to_date = '9999-01-01' AND titles.title = 'Engineer' ORDER BY employees.emp_no ASC");
-            //stmt.setString(1, role);
-
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                            "SELECT employees.emp_no, employees.first_name, employees.last_name, salaries.salary "
+                            + " FROM employees, salaries, titles "
+                            + " WHERE employees.emp_no = salaries.emp_no "
+                            + " AND employees.emp_no = titles.emp_no "
+                            + " AND salaries.to_date = '9999-01-01' "
+                            + " AND titles.to_date = '9999-01-01' "
+                            + " AND titles.title = '" + role
+                            + "' ORDER BY employees.emp_no ASC "; 
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery();
             // Extract employee information
